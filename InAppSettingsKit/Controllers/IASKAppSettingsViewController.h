@@ -85,4 +85,9 @@
 - (void)synchronizeSettings;
 - (void)dismiss:(id)sender;
 - (void)setHiddenKeys:(NSSet*)hiddenKeys animated:(BOOL)animated;
+
+#pragma mark - view controller classes
+// use these methods to modify the view controllers in subclasses
+- (Class)specifierValuesViewControllerClass;
+- (Class)textEditorViewControllerClass;
 @end

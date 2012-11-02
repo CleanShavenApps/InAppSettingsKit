@@ -656,7 +656,7 @@ CGRect IASKCGRectSwap(CGRect rect);
             NSMutableDictionary *newItemDict = [NSMutableDictionary dictionaryWithCapacity:3];
             [newItemDict addEntriesFromDictionary: [self.viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex]];	// copy the title and explain strings
             
-            targetViewController = [[IASKSpecifierValuesViewController alloc] init];
+            targetViewController = [[[self specifierValuesViewControllerClass] alloc] init];
             // add the new view controller to the dictionary and then to the 'viewList' array
             [newItemDict setObject:targetViewController forKey:@"viewController"];
             [self.viewList replaceObjectAtIndex:kIASKSpecifierValuesViewControllerIndex withObject:newItemDict];
@@ -684,7 +684,7 @@ CGRect IASKCGRectSwap(CGRect rect);
             NSMutableDictionary *newItemDict = [NSMutableDictionary dictionaryWithCapacity:3];
             [newItemDict addEntriesFromDictionary: [self.viewList objectAtIndex:kIASKSpecifierEditorViewControllerIndex]];	// copy the title and explain strings
             
-            targetViewController = [[IASKTextEditorViewController alloc] init];
+            targetViewController = [[[self textEditorViewControllerClass] alloc] init];
             // add the new view controller to the dictionary and then to the 'viewList' array
             [newItemDict setObject:targetViewController forKey:@"viewController"];
             [self.viewList replaceObjectAtIndex:kIASKSpecifierEditorViewControllerIndex withObject:newItemDict];
@@ -928,4 +928,17 @@ CGRect IASKCGRectSwap(CGRect rect) {
 	newRect.size.height = rect.size.width;
 	return newRect;
 }
+
+#pragma mark - view controller classes
+
+- (Class)specifierValuesViewControllerClass
+{
+    return [IASKSpecifierValuesViewController class];
+}
+
+- (Class)textEditorViewControllerClass
+{
+    return [IASKTextEditorViewController class];
+}
+
 @end
