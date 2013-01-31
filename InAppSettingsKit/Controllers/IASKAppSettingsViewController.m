@@ -63,6 +63,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 @synthesize showDoneButton = _showDoneButton;
 @synthesize settingsStore = _settingsStore;
 @synthesize hiddenKeys = _hiddenKeys;
+@synthesize tableView = _tableView;
 
 #pragma mark accessors
 - (IASKSettingsReader*)settingsReader {
@@ -117,10 +118,14 @@ CGRect IASKCGRectSwap(CGRect rect);
     if (style != UITableViewStyleGrouped) {
         NSLog(@"only UITableViewStyleGrouped style is supported, forcing it.");
     }
-    self = [super initWithStyle:UITableViewStyleGrouped];
+    self = [super init];
     if (self) {
-        self.tableView.delegate = self;
-        self.tableView.dataSource = self;
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, [self.view bounds].size.width, [self.view bounds].size.height) style:style];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        [self.view addSubview:_tableView];
+        [_tableView release];
+        
         _showDoneButton = YES;
         // If set to YES, will display credits for InAppSettingsKit creators
         _showCreditsFooter = YES;
@@ -163,7 +168,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 	// Release any retained subviews of the main view.
 	// e.g. self.myOutlet = nil;
-	self.view = nil;
 	self.viewList = nil;
 }
 
@@ -329,6 +333,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
+    [_tableView release], _tableView = nil;
     [_viewList release], _viewList = nil;
 	[_file release], _file = nil;
 	[_currentFirstResponder release], _currentFirstResponder = nil;

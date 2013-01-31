@@ -19,10 +19,8 @@
 #import "IASKTextViewCell.h"
 
 @interface IASKTextEditorViewController() {
-	UITableView *_tableView;
 	UITextView *_textView;
 }
-@property (nonatomic, assign) UITableView *tableView;
 @property (nonatomic, assign) UITextView *textView;
 @end
 
@@ -41,17 +39,18 @@
     return _settingsStore;
 }
 
-- (void)loadView
+- (void)viewDidLoad
 {
-	[super loadView];
-    _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+	[super viewDidLoad];
+    
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, [self.view bounds].size.width, [self.view bounds].size.height) style:UITableViewStyleGrouped];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
     UIViewAutoresizingFlexibleHeight;
     _tableView.delegate = self;
     _tableView.dataSource = self;
 	_tableView.allowsSelection = NO;
-    
-    self.view = _tableView;
+    [self.view addSubview:_tableView];
+    [_tableView release];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

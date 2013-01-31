@@ -59,7 +59,7 @@
 @end
 
 
-@interface IASKAppSettingsViewController : UITableViewController <IASKViewController, UITextFieldDelegate, MFMailComposeViewControllerDelegate> {
+@interface IASKAppSettingsViewController : UIViewController <IASKViewController, UITextFieldDelegate, MFMailComposeViewControllerDelegate, UITableViewDelegate, UITableViewDataSource> {
 	id<IASKSettingsDelegate>  _delegate;
     
     NSMutableArray          *_viewList;
@@ -74,8 +74,10 @@
     BOOL                    _showDoneButton;
 	
     NSSet                   *_hiddenKeys;
+    UITableView             *_tableView;
 }
 
+@property (nonatomic, retain) UITableView *tableView;
 @property (nonatomic, assign) IBOutlet id delegate;
 @property (nonatomic, copy) NSString *file;
 @property (nonatomic, assign) BOOL showCreditsFooter;

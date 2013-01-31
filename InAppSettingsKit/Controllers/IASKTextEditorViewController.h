@@ -17,8 +17,10 @@
     IASKSpecifier			*_currentSpecifier;
 	IASKSettingsReader		*_settingsReader;
     id<IASKSettingsStore>	_settingsStore;
+    UITableView             *_tableView;
 }
 
 @property (nonatomic, retain) IASKSpecifier *currentSpecifier;
+@property (nonatomic, retain) UITableView *tableView;
 
 @end

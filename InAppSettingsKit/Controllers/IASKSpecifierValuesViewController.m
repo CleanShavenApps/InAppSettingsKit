@@ -52,15 +52,17 @@
     return _settingsStore;
 }
 
-- (void)loadView
+- (void)viewDidLoad
 {
-    _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    [super viewDidLoad];
+    
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, [self.view bounds].size.width, [self.view bounds].size.height) style:UITableViewStyleGrouped];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
     UIViewAutoresizingFlexibleHeight;
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    
-    self.view = _tableView;
+    [self.view addSubview:_tableView];
+    [_tableView release];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -107,7 +109,7 @@
 - (void)viewDidUnload {
 	// Release any retained subviews of the main view.
 	// e.g. self.myOutlet = nil;
-	self.tableView = nil;
+	//self.tableView = nil;
 }
 
 
