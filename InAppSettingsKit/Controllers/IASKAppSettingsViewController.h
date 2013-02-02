@@ -92,4 +92,5 @@
 // use these methods to modify the view controllers in subclasses
 - (Class)specifierValuesViewControllerClass;
 - (Class)textEditorViewControllerClass;
+- (Class)titleValueSpecifierViewCellClass;
 @end

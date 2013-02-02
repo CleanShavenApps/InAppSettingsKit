@@ -480,7 +480,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	}
 	else if ([identifier isEqualToString:kIASKPSMultiValueSpecifier] || [identifier isEqualToString:kIASKPSTitleValueSpecifier]) {
-		cell = [[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+		cell = [[[self titleValueSpecifierViewCellClass] alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
 		cell.accessoryType = [identifier isEqualToString:kIASKPSMultiValueSpecifier] ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	}
 	else if ([identifier isEqualToString:kIASKPSTextFieldSpecifier]) {
@@ -488,16 +488,16 @@ CGRect IASKCGRectSwap(CGRect rect);
 		[((IASKPSTextFieldSpecifierViewCell*)cell).textField addTarget:self action:@selector(_textChanged:) forControlEvents:UIControlEventEditingChanged];
 	}
 	else if ([identifier isEqualToString:kIASKTextViewSpecifier]) {
-		cell = [[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+		cell = [[[self titleValueSpecifierViewCellClass] alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
 	else if ([identifier isEqualToString:kIASKPSSliderSpecifier]) {
         cell = [[IASKPSSliderSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSSliderSpecifier];
 	} else if ([identifier isEqualToString:kIASKPSChildPaneSpecifier]) {
-		cell = [[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+		cell = [[[self titleValueSpecifierViewCellClass] alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	} else if ([identifier isEqualToString:kIASKMailComposeSpecifier]) {
-		cell = [[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+		cell = [[[self titleValueSpecifierViewCellClass] alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
 		[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
 	} else {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
@@ -934,7 +934,7 @@ CGRect IASKCGRectSwap(CGRect rect) {
 	return newRect;
 }
 
-#pragma mark - view controller classes
+#pragma mark - classes for replacement
 
 - (Class)specifierValuesViewControllerClass
 {
@@ -944,6 +944,11 @@ CGRect IASKCGRectSwap(CGRect rect) {
 - (Class)textEditorViewControllerClass
 {
     return [IASKTextEditorViewController class];
+}
+
+- (Class)titleValueSpecifierViewCellClass
+{
+    return [IASKPSTitleValueSpecifierViewCell class];
 }
 
 @end
