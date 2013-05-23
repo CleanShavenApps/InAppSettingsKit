@@ -263,7 +263,7 @@
     }
     if ([self.type isEqualToString:kIASKButtonSpecifier] && !self.cellImage) {
 		return UITextAlignmentCenter;
-	} else if ([self.type isEqualToString:kIASKPSMultiValueSpecifier] || [self.type isEqualToString:kIASKPSTitleValueSpecifier] || [self.type isEqualToString:kIASKTextViewSpecifier]) {
+	} else if ([self.type isEqualToString:kIASKPSMultiValueSpecifier] || [self.type isEqualToString:kIASKPSTitleValueSpecifier] || [self.type isEqualToString:kIASKTextViewSpecifier] || [self.type isEqualToString:kIASKOpenURLSpecifier]) {
 		return UITextAlignmentRight;
 	}
 	return UITextAlignmentLeft;

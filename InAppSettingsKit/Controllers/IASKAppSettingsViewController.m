@@ -479,9 +479,9 @@ CGRect IASKCGRectSwap(CGRect rect);
 		[((IASKSwitch*)cell.accessoryView) addTarget:self action:@selector(toggledValue:) forControlEvents:UIControlEventValueChanged];
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	}
-	else if ([identifier isEqualToString:kIASKPSMultiValueSpecifier] || [identifier isEqualToString:kIASKPSTitleValueSpecifier]) {
+	else if ([identifier isEqualToString:kIASKPSMultiValueSpecifier] || [identifier isEqualToString:kIASKPSTitleValueSpecifier] || [identifier isEqualToString:kIASKOpenURLSpecifier]) {
 		cell = [[[self titleValueSpecifierViewCellClass] alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
-		cell.accessoryType = [identifier isEqualToString:kIASKPSMultiValueSpecifier] ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+		cell.accessoryType = ([identifier isEqualToString:kIASKPSMultiValueSpecifier]) ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	}
 	else if ([identifier isEqualToString:kIASKPSTextFieldSpecifier]) {
 		cell = [[IASKPSTextFieldSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
