@@ -780,8 +780,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 		}
     } else if ([[specifier type] isEqualToString:kIASKMailComposeSpecifier]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        if ([MFMailComposeViewController canSendMail]) {
-            MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
+        if ([[self mailComposeViewControllerClass] canSendMail]) {
+            MFMailComposeViewController *mailViewController = [[[self mailComposeViewControllerClass] alloc] init];
             mailViewController.navigationBar.barStyle = self.navigationController.navigationBar.barStyle;
 			mailViewController.navigationBar.tintColor = self.navigationController.navigationBar.tintColor;
 			
@@ -949,6 +949,11 @@ CGRect IASKCGRectSwap(CGRect rect) {
 - (Class)titleValueSpecifierViewCellClass
 {
     return [IASKPSTitleValueSpecifierViewCell class];
+}
+
+- (Class)mailComposeViewControllerClass
+{
+	return [MFMailComposeViewController class];
 }
 
 @end

@@ -93,4 +93,5 @@
 - (Class)specifierValuesViewControllerClass;
 - (Class)textEditorViewControllerClass;
 - (Class)titleValueSpecifierViewCellClass;
+- (Class)mailComposeViewControllerClass;
 @end
