@@ -77,6 +77,27 @@
     return [self localizedObjectForKey:kIASKFooterText];
 }
 
+//
+// Dynamic
+//
+
+- (NSString *)dynamicIdentifier
+{
+	return [_specifierDict objectForKey:kIASKDyanmicIdentifier];
+}
+
+- (BOOL)hasDynamicFooterText
+{
+	return [[_specifierDict objectForKey:kIASKDynamicFooterText] boolValue];
+}
+
+- (BOOL)hasDynamicVisibility
+{
+	return [[_specifierDict objectForKey:kIASKDynamicVisibility] boolValue];
+}
+
+// End Dynamic
+
 -(Class) viewControllerClass {
     return NSClassFromString([_specifierDict objectForKey:kIASKViewControllerClass]);
 }

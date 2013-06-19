@@ -19,6 +19,11 @@
 #define kIASKPreferenceSpecifiers             @"PreferenceSpecifiers"
 #define kIASKCellImage                        @"IASKCellImage"
 
+// Dynamic
+#define kIASKDyanmicIdentifier				@"IASKDynamicIdentifier"
+#define kIASKDynamicFooterText				@"IASKHasDynamicFooterText"
+#define kIASKDynamicVisibility				@"IASKHasDynamicVisibility"
+
 #define kIASKType                             @"Type"
 #define kIASKTitle                            @"Title"
 #define kIASKFooterText                       @"FooterText"
@@ -144,6 +149,7 @@ __VA_ARGS__ \
 - (NSString*)titleForSection:(NSInteger)section;
 - (NSString*)keyForSection:(NSInteger)section;
 - (NSString*)footerTextForSection:(NSInteger)section;
+- (NSString*)footerTextForSection:(NSInteger)section dynamicFooter:(BOOL *)useDynamicFooter dynamicIdentifier:(NSString **)dynamicIdentifier;
 - (NSString*)titleForStringId:(NSString*)stringId;
 - (NSString*)pathForImageNamed:(NSString*)image;
 

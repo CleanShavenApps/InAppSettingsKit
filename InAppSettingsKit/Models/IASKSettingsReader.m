@@ -191,12 +191,28 @@ hiddenKeys = _hiddenKeys;
 	return nil;
 }
 
-- (NSString*)footerTextForSection:(NSInteger)section {
+- (NSString*)footerTextForSection:(NSInteger)section dynamicFooter:(BOOL *)useDynamicFooter dynamicIdentifier:(NSString **)dynamicIdentifier
+{
 	if ([self _sectionHasHeading:section]) {
 		NSDictionary *dict = [[[self dataSource] objectAtIndex:section] objectAtIndex:kIASKSectionHeaderIndex];
+		
+		if (useDynamicFooter != NULL && [dict objectForKey:kIASKDynamicFooterText])
+		{
+			*useDynamicFooter = YES;
+			
+			if (dynamicIdentifier != NULL && [dict objectForKey:kIASKDyanmicIdentifier])
+				*dynamicIdentifier = [dict objectForKey:kIASKDyanmicIdentifier];
+			
+			return nil;
+		}
+		
 		return [self titleForStringId:[dict objectForKey:kIASKFooterText]];
 	}
 	return nil;
+}
+
+- (NSString*)footerTextForSection:(NSInteger)section {
+	return [self footerTextForSection:section dynamicFooter:NULL dynamicIdentifier:NULL];
 }
 
 - (NSString*)titleForStringId:(NSString*)stringId {

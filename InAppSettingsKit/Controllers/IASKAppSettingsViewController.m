@@ -453,8 +453,34 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
-	NSString *footerText = [self.settingsReader footerTextForSection:section];
-	if (_showCreditsFooter && (section == [self.settingsReader numberOfSections]-1)) {
+	BOOL useDynamicFooter = NO;
+	NSString *dynamicIdentifier = nil;
+	NSString *footerText =
+	[self.settingsReader footerTextForSection:section
+								dynamicFooter:&useDynamicFooter
+							dynamicIdentifier:&dynamicIdentifier];
+	
+	if (useDynamicFooter)
+	{
+		BOOL delegateRespondsToDynamicFooter =
+		[self.delegate respondsToSelector:@selector(tableView:dynamicFooterForIdentifier:)];
+		
+		NSAssert(delegateRespondsToDynamicFooter, @"Section %d wants dynamic footer but delegate does not respond to tableView:dynamicFooterForIdentifier:", section);
+		
+		if (delegateRespondsToDynamicFooter)
+		{
+			footerText = [self.delegate tableView:tableView dynamicFooterForIdentifier:dynamicIdentifier];
+		}
+						  
+		else
+		{
+			footerText = nil;
+		}
+		
+		return footerText;		
+	}
+	
+	else if (_showCreditsFooter && (section == [self.settingsReader numberOfSections]-1)) {
 		// show credits since this is the last section
 		if ((footerText == nil) || ([footerText length] == 0)) {
 			// show the credits on their own
@@ -463,11 +489,14 @@ CGRect IASKCGRectSwap(CGRect rect);
 			// show the credits below the app's FooterText
 			return [NSString stringWithFormat:@"%@\n\n%@", footerText, kIASKCredits];
 		}
-	} else {
-		if ([footerText length] == 0) {
+	}
+	
+	else
+	{
+		if ([footerText length] == 0)
 			return nil;
-		}
-		return [self.settingsReader footerTextForSection:section];
+		
+		return footerText;
 	}
 }
 
@@ -803,13 +832,15 @@ CGRect IASKCGRectSwap(CGRect rect);
                     isHTML = [[[specifier specifierDict] objectForKey:kIASKMailComposeBodyIsHTML] boolValue];
                 }
                 
-              if ([self.delegate respondsToSelector:@selector(settingsViewController:mailComposeBodyForSpecifier:)]) {
-                    [mailViewController setMessageBody:[self.delegate settingsViewController:self
-                                                                 mailComposeBodyForSpecifier:specifier] isHTML:isHTML];
+				// Prioritize the plist property
+				NSString *messageBody = [specifier localizedObjectForKey:kIASKMailComposeBody];
+				BOOL plistHasMessageBody = [messageBody length] > 0;
+				
+				if (!plistHasMessageBody && [self.delegate respondsToSelector:@selector(settingsViewController:mailComposeBodyForSpecifier:)]) {
+					messageBody = [self.delegate settingsViewController:self mailComposeBodyForSpecifier:specifier];
                 }
-                else {
-                    [mailViewController setMessageBody:[specifier localizedObjectForKey:kIASKMailComposeBody] isHTML:isHTML];
-                }
+
+				[mailViewController setMessageBody:messageBody isHTML:isHTML];
             }
 
             UIViewController<MFMailComposeViewControllerDelegate> *vc = nil;

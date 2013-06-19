@@ -33,6 +33,13 @@
 - (NSString*)key;
 - (NSString*)type;
 - (NSString*)titleForCurrentValue:(id)currentValue;
+
+// Dynamic: IASKAppSettingsViewController will query delegate for
+// footer text, visibility and value
+- (NSString *)dynamicIdentifier;
+- (BOOL)hasDynamicFooterText;
+- (BOOL)hasDynamicVisibility;
+
 - (NSInteger)multipleValuesCount;
 - (NSArray*)multipleValues;
 - (NSArray*)multipleTitles;

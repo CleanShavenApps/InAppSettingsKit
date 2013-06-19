@@ -40,6 +40,10 @@
 - (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier;
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForSpecifier:(IASKSpecifier*)specifier;
 
+// For dynamic values
+- (NSString *)tableView:(UITableView*)tableView dynamicFooterForIdentifier:(NSString*)identifier;
+- (BOOL)tableView:(UITableView*)tableView dynamicVisibilityForSpecifier:(IASKSpecifier*)specifier;
+
 #pragma mark - mail composing customization
 - (NSString*) settingsViewController:(id<IASKViewController>)settingsViewController 
          mailComposeBodyForSpecifier:(IASKSpecifier*) specifier;
