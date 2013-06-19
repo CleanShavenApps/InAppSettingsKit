@@ -63,6 +63,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 @synthesize showDoneButton = _showDoneButton;
 @synthesize settingsStore = _settingsStore;
 @synthesize hiddenKeys = _hiddenKeys;
+@synthesize hiddenGroups = _hiddenGroups;
 @synthesize tableView = _tableView;
 
 #pragma mark accessors
@@ -97,6 +98,7 @@ CGRect IASKCGRectSwap(CGRect rect);
     self.tableView.contentOffset = CGPointMake(0, 0);
 	self.settingsReader = nil; // automatically initializes itself
 	[_hiddenKeys release], _hiddenKeys = nil;
+	[_hiddenGroups release], _hiddenGroups = nil;
 	[self.tableView reloadData];
 }
 
@@ -242,6 +244,25 @@ CGRect IASKCGRectSwap(CGRect rect);
 	// Release any cached data, images, etc that aren't in use.
 }
 
+- (void)setHiddenGroups:(NSSet *)theHiddenGroups
+{
+	if (_hiddenGroups != theHiddenGroups)
+	{
+        NSSet *oldHiddenGroups = _hiddenGroups;
+        _hiddenGroups = [theHiddenGroups retain];
+		
+		self.settingsReader.hiddenGroups = theHiddenGroups;
+		[self.tableView reloadData];
+		
+		[oldHiddenGroups release];
+	}
+	
+	IASKAppSettingsViewController *childViewController = [[self.viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex] objectForKey:@"viewController"];
+	if(childViewController) {
+		[childViewController setHiddenGroups:theHiddenGroups];
+	}
+}
+
 - (void)setHiddenKeys:(NSSet *)theHiddenKeys {
 	[self setHiddenKeys:theHiddenKeys animated:NO];
 }
@@ -340,6 +361,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	[_settingsReader release], _settingsReader = nil;
     [_settingsStore release], _settingsStore = nil;
     [_hiddenKeys release], _hiddenKeys = nil;
+	[_hiddenGroups release], _hiddenGroups = nil;
 	
 	_delegate = nil;
 
@@ -783,6 +805,7 @@ CGRect IASKCGRectSwap(CGRect rect);
         }
 		targetViewController.file = specifier.file;
 		targetViewController.hiddenKeys = self.hiddenKeys;
+		targetViewController.hiddenGroups = self.hiddenGroups;
 		targetViewController.title = specifier.title;
         targetViewController.showCreditsFooter = NO;
         [[self navigationController] pushViewController:targetViewController animated:YES];

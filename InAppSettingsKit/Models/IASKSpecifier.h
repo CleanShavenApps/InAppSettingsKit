@@ -38,7 +38,6 @@
 // footer text, visibility and value
 - (NSString *)dynamicIdentifier;
 - (BOOL)hasDynamicFooterText;
-- (BOOL)hasDynamicVisibility;
 
 - (NSInteger)multipleValuesCount;
 - (NSArray*)multipleValues;

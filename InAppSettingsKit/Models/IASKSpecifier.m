@@ -91,11 +91,6 @@
 	return [[_specifierDict objectForKey:kIASKDynamicFooterText] boolValue];
 }
 
-- (BOOL)hasDynamicVisibility
-{
-	return [[_specifierDict objectForKey:kIASKDynamicVisibility] boolValue];
-}
-
 // End Dynamic
 
 -(Class) viewControllerClass {

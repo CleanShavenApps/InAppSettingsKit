@@ -40,9 +40,8 @@
 - (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier;
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForSpecifier:(IASKSpecifier*)specifier;
 
-// For dynamic values
+// For dynamic footer
 - (NSString *)tableView:(UITableView*)tableView dynamicFooterForIdentifier:(NSString*)identifier;
-- (BOOL)tableView:(UITableView*)tableView dynamicVisibilityForSpecifier:(IASKSpecifier*)specifier;
 
 #pragma mark - mail composing customization
 - (NSString*) settingsViewController:(id<IASKViewController>)settingsViewController 
@@ -78,6 +77,7 @@
     BOOL                    _showDoneButton;
 	
     NSSet                   *_hiddenKeys;
+	NSSet					*_hiddenGroups; // hiding groups (sections) with dynamic identifier
     UITableView             *_tableView;
 }
 
@@ -87,6 +87,7 @@
 @property (nonatomic, assign) BOOL showCreditsFooter;
 @property (nonatomic, assign) BOOL showDoneButton;
 @property (nonatomic, retain) NSSet *hiddenKeys;
+@property (nonatomic, retain) NSSet *hiddenGroups;
 
 - (void)synchronizeSettings;
 - (void)dismiss:(id)sender;

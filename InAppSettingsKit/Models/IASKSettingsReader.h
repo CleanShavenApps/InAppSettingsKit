@@ -22,7 +22,6 @@
 // Dynamic
 #define kIASKDyanmicIdentifier				@"IASKDynamicIdentifier"
 #define kIASKDynamicFooterText				@"IASKHasDynamicFooterText"
-#define kIASKDynamicVisibility				@"IASKHasDynamicVisibility"
 
 #define kIASKType                             @"Type"
 #define kIASKTitle                            @"Title"
@@ -138,6 +137,7 @@ __VA_ARGS__ \
     NSArray         *_dataSource;
     NSBundle        *_bundle;
     NSSet           *_hiddenKeys;
+	NSSet			*_hiddenGroups;
 }
 
 - (id)initWithFile:(NSString*)file;
@@ -159,5 +159,5 @@ __VA_ARGS__ \
 @property (nonatomic, retain) NSDictionary  *settingsBundle;
 @property (nonatomic, retain) NSArray       *dataSource;
 @property (nonatomic, retain) NSSet         *hiddenKeys;
-
+@property (nonatomic, retain) NSSet         *hiddenGroups;
 @end

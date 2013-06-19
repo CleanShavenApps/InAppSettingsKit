@@ -32,7 +32,8 @@ localizationTable=_localizationTable,
 bundlePath=_bundlePath,
 settingsBundle=_settingsBundle, 
 dataSource=_dataSource,
-hiddenKeys = _hiddenKeys;
+hiddenKeys = _hiddenKeys,
+hiddenGroups = _hiddenGroups;
 
 - (id)init {
 	return [self initWithFile:@"Root"];
@@ -77,6 +78,7 @@ hiddenKeys = _hiddenKeys;
 	[_dataSource release], _dataSource = nil;
 	[_bundle release], _bundle = nil;
     [_hiddenKeys release], _hiddenKeys = nil;
+	[_hiddenGroups release], _hiddenGroups = nil;
 
 	[super dealloc];
 }
@@ -94,17 +96,46 @@ hiddenKeys = _hiddenKeys;
 	}
 }
 
+- (void)setHiddenGroups:(NSSet *)theHiddenGroups {
+	if (_hiddenGroups != theHiddenGroups) {
+		id old = _hiddenGroups;
+		_hiddenGroups = [theHiddenGroups retain];
+		[old release];
+		
+		if (_settingsBundle) {
+			[self _reinterpretBundle:_settingsBundle];
+		}
+	}
+}
 
 - (void)_reinterpretBundle:(NSDictionary*)settingsBundle {
 	NSArray *preferenceSpecifiers	= [settingsBundle objectForKey:kIASKPreferenceSpecifiers];
 	NSInteger sectionCount			= -1;
 	NSMutableArray *dataSource		= [[[NSMutableArray alloc] init] autorelease];
 	
+	// When encountering a group that is hidden, this flag is set to YES so that
+	// we can ignore all specifiers within that group until the next group is
+	// encountered
+	BOOL lastGroupIsHidden = NO;
+	
 	for (NSDictionary *specifier in preferenceSpecifiers) {
 		if ([self.hiddenKeys containsObject:[specifier objectForKey:kIASKKey]]) {
 			continue;
 		}
 		if ([(NSString*)[specifier objectForKey:kIASKType] isEqualToString:kIASKPSGroupSpecifier]) {
+
+			// Check if group is hidden, if so, continue
+			NSString *dynamicIdentifier = specifier[kIASKDyanmicIdentifier];
+			if ([dynamicIdentifier length] && [self.hiddenGroups containsObject:dynamicIdentifier])
+			{
+//				NSLog(@"Group at specifier %@ is hidden", specifier);
+				lastGroupIsHidden = YES;
+				continue;
+			}
+			
+			// Reset this since the hidden group has now ended
+			lastGroupIsHidden = NO;
+			
 			NSMutableArray *newArray = [[NSMutableArray alloc] init];
 			
 			[newArray addObject:specifier];
@@ -113,6 +144,12 @@ hiddenKeys = _hiddenKeys;
 			sectionCount++;
 		}
 		else {
+			// Specifier has been hidden because group is hidden, continue
+			if (lastGroupIsHidden) {
+//				NSLog(@"Specifier %@ is hidden because the group it belongs to is hidden", specifier);
+				continue;
+			}
+			
 			if (sectionCount == -1) {
 				NSMutableArray *newArray = [[NSMutableArray alloc] init];
 				[dataSource addObject:newArray];
