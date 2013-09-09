@@ -27,6 +27,7 @@
 #import "IASKSpecifierValuesViewController.h"
 #import "IASKTextEditorViewController.h"
 #import "IASKTextField.h"
+#import "IASKSwitchViewCell.h"
 
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
 static const CGFloat MINIMUM_SCROLL_FRACTION = 0.2;
@@ -525,7 +526,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 - (UITableViewCell*)newCellForIdentifier:(NSString*)identifier {
 	UITableViewCell *cell = nil;
 	if ([identifier isEqualToString:kIASKPSToggleSwitchSpecifier]) {
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSToggleSwitchSpecifier];
+		cell = [[IASKSwitchViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSToggleSwitchSpecifier];
 		cell.accessoryView = [[[IASKSwitch alloc] initWithFrame:CGRectMake(0, 0, 79, 27)] autorelease];
 		[((IASKSwitch*)cell.accessoryView) addTarget:self action:@selector(toggledValue:) forControlEvents:UIControlEventValueChanged];
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -965,6 +966,11 @@ static NSDictionary *oldUserDefaults = nil;
 	
 	for (UITableViewCell *cell in self.tableView.visibleCells) {
 		if ([cell isKindOfClass:[IASKPSTextFieldSpecifierViewCell class]] && [((IASKPSTextFieldSpecifierViewCell*)cell).textField isFirstResponder]) {
+			[indexPathsToUpdate removeObject:[self.tableView indexPathForCell:cell]];
+		}
+        else if ([cell isKindOfClass:[IASKSwitchViewCell class]]) {
+            // there is no need to update the cell with UISwitch when UISwitch value changes
+            // updating will just cancel the animation
 			[indexPathsToUpdate removeObject:[self.tableView indexPathForCell:cell]];
 		}
 	}
