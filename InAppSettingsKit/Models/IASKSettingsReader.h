@@ -102,7 +102,7 @@
 #define kIASKMinLabelWidth                    97
 #define kIASKMaxLabelWidth                    240
 #define kIASKMinValueWidth                    35
-#define kIASKPaddingLeft                      9
+#define kIASKPaddingLeft                      9+6
 #define kIASKPaddingRight                     10
 #define kIASKHorizontalPaddingGroupTitles     19
 #define kIASKVerticalPaddingGroupTitles       15
