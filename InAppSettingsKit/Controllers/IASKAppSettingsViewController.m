@@ -526,7 +526,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 - (UITableViewCell*)newCellForIdentifier:(NSString*)identifier {
 	UITableViewCell *cell = nil;
 	if ([identifier isEqualToString:kIASKPSToggleSwitchSpecifier]) {
-		cell = [[IASKSwitchViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSToggleSwitchSpecifier];
+		cell = [[IASKSwitchViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kIASKPSToggleSwitchSpecifier];
 		cell.accessoryView = [[[IASKSwitch alloc] initWithFrame:CGRectMake(0, 0, 79, 27)] autorelease];
 		[((IASKSwitch*)cell.accessoryView) addTarget:self action:@selector(toggledValue:) forControlEvents:UIControlEventValueChanged];
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -574,6 +574,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	
 	if ([specifier.type isEqualToString:kIASKPSToggleSwitchSpecifier]) {
 		cell.textLabel.text = specifier.title;
+        cell.detailTextLabel.text = specifier.subtitle;
 		
 		id currentValue = [self.settingsStore objectForKey:specifier.key];
 		BOOL toggleState;

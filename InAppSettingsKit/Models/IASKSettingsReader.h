@@ -25,6 +25,7 @@
 
 #define kIASKType                             @"Type"
 #define kIASKTitle                            @"Title"
+#define kIASKSubtitle                         @"Subtitle"
 #define kIASKFooterText                       @"FooterText"
 #define kIASKKey                              @"Key"
 #define kIASKFile                             @"File"
