@@ -286,7 +286,9 @@
     }
     if ([self.type isEqualToString:kIASKButtonSpecifier] && !self.cellImage) {
 		return NSTextAlignmentCenter;
-	} else if ([self.type isEqualToString:kIASKPSMultiValueSpecifier] || [self.type isEqualToString:kIASKPSTitleValueSpecifier]) {
+	} else if ([self.type isEqualToString:kIASKPSMultiValueSpecifier] ||
+               [self.type isEqualToString:kIASKPSTitleValueSpecifier] ||
+               [self.type isEqualToString:kIASKOpenURLSpecifier]) {
 		return NSTextAlignmentRight;
 	}
 	return NSTextAlignmentLeft;
