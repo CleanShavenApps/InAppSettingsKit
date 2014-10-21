@@ -41,6 +41,10 @@
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForSpecifier:(IASKSpecifier*)specifier;
 
 #pragma mark - mail composing customization
+
+- (NSString*) settingsViewController:(id<IASKViewController>)settingsViewController
+         mailComposeSubjectForSpecifier:(IASKSpecifier*) specifier;
+
 - (NSString*) settingsViewController:(id<IASKViewController>)settingsViewController
          mailComposeBodyForSpecifier:(IASKSpecifier*) specifier;
 

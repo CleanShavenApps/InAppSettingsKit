@@ -719,7 +719,19 @@ CGRect IASKCGRectSwap(CGRect rect);
             mailViewController.navigationBar.titleTextAttributes =  self.navigationController.navigationBar.titleTextAttributes;
             
             if ([specifier localizedObjectForKey:kIASKMailComposeSubject]) {
-                [mailViewController setSubject:[specifier localizedObjectForKey:kIASKMailComposeSubject]];
+                
+                NSString *subject = nil;
+                if ([self.delegate respondsToSelector:@selector(settingsViewController:mailComposeSubjectForSpecifier:)])
+                {
+                    subject = [self.delegate settingsViewController:self
+                                     mailComposeSubjectForSpecifier:specifier];
+                }
+                if (!subject)
+                {
+                    subject = [specifier localizedObjectForKey:kIASKMailComposeSubject];
+                }
+                
+                [mailViewController setSubject:subject];
             }
             if ([[specifier specifierDict] objectForKey:kIASKMailComposeToRecipents]) {
                 [mailViewController setToRecipients:[[specifier specifierDict] objectForKey:kIASKMailComposeToRecipents]];
