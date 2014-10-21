@@ -156,6 +156,14 @@
     return nil;
 }
 
+- (NSDictionary*)headingForSection:(NSInteger)section {
+    if ([self _sectionHasHeading:section]) {
+        NSDictionary *dict = [[[self dataSource] objectAtIndex:section] objectAtIndex:kIASKSectionHeaderIndex];
+        return dict;
+    }
+    return nil;
+}
+
 - (NSString*)titleForSection:(NSInteger)section {
     if ([self _sectionHasHeading:section]) {
         NSDictionary *dict = [[[self dataSource] objectAtIndex:section] objectAtIndex:kIASKSectionHeaderIndex];

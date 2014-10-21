@@ -36,6 +36,9 @@
                           tableView:(UITableView *)tableView
             viewForHeaderForSection:(NSInteger)section;
 
+#pragma mark - UITableView footer customization
+- (NSString *)tableView:(UITableView *)tableView dynamicFooterForIdentifier:(NSString *)identifier;
+
 #pragma mark - UITableView cell customization
 - (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier;
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForSpecifier:(IASKSpecifier*)specifier;

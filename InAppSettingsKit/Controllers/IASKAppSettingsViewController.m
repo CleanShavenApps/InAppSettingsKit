@@ -427,6 +427,19 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
+    NSDictionary *dict = [self.settingsReader headingForSection:section];
+    if ([dict[kIASKHasDynamicFooterText] boolValue])
+    {
+        if ([self.delegate respondsToSelector:@selector(tableView:dynamicFooterForIdentifier:)])
+        {
+            NSString *footerText = [self.delegate tableView:tableView dynamicFooterForIdentifier:dict[kIASKDynamicIdentifier]];
+            if (footerText)
+            {
+                return footerText;
+            }
+        }
+    }
+    
 	NSString *footerText = [self.settingsReader footerTextForSection:section];
 	if (_showCreditsFooter && (section == [self.settingsReader numberOfSections]-1)) {
 		// show credits since this is the last section

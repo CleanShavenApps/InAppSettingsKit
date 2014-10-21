@@ -23,6 +23,8 @@
 #define kIASKType                             @"Type"
 #define kIASKTitle                            @"Title"
 #define kIASKFooterText                       @"FooterText"
+#define kIASKHasDynamicFooterText             @"IASKHasDynamicFooterText"
+#define kIASKDynamicIdentifier                @"IASKDynamicIdentifier"
 #define kIASKKey                              @"Key"
 #define kIASKFile                             @"File"
 #define kIASKDefaultValue                     @"DefaultValue"
@@ -195,6 +197,7 @@ _Pragma("clang diagnostic pop")
 - (IASKSpecifier*)specifierForIndexPath:(NSIndexPath*)indexPath;
 - (NSIndexPath*)indexPathForKey:(NSString*)key;
 - (IASKSpecifier*)specifierForKey:(NSString*)key;
+- (NSDictionary*)headingForSection:(NSInteger)section;
 - (NSString*)titleForSection:(NSInteger)section;
 - (NSString*)keyForSection:(NSInteger)section;
 - (NSString*)footerTextForSection:(NSInteger)section;
