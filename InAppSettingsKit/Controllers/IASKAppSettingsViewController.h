@@ -38,6 +38,8 @@
 
 #pragma mark - UITableView footer customization
 - (NSString *)tableView:(UITableView *)tableView dynamicFooterForIdentifier:(NSString *)identifier;
+- (UIView *)tableView:(UITableView *)tableView dynamicFooterViewForIdentifier:(NSString *)identifier;
+- (CGFloat)tableView:(UITableView *)tableView dynamicHeightForFooterForIdentifier:(NSString *)identifier;
 
 #pragma mark - UITableView cell customization
 - (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier;
