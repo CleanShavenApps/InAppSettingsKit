@@ -682,7 +682,7 @@ CGRect IASKCGRectSwap(CGRect rect);
     assert(![[specifier type] isEqualToString:kIASKPSSliderSpecifier]);
     
     if ([[specifier type] isEqualToString:kIASKPSMultiValueSpecifier]) {
-        IASKSpecifierValuesViewController *targetViewController = [[IASKSpecifierValuesViewController alloc] init];
+        IASKSpecifierValuesViewController *targetViewController = [[[self specifierValuesViewControllerClass] alloc] init];
         [targetViewController setCurrentSpecifier:specifier];
         targetViewController.settingsReader = self.settingsReader;
         targetViewController.settingsStore = self.settingsStore;
@@ -946,4 +946,14 @@ CGRect IASKCGRectSwap(CGRect rect) {
 	newRect.size.height = rect.size.width;
 	return newRect;
 }
+
+- (Class)specifierValuesViewControllerClass
+{
+    if (_specifierValuesViewControllerClass == 0)
+    {
+        _specifierValuesViewControllerClass = [IASKSpecifierValuesViewController class];
+    }
+    return _specifierValuesViewControllerClass;
+}
+
 @end

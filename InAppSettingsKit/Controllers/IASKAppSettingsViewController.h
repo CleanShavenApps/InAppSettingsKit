@@ -23,6 +23,7 @@
 
 @class IASKSettingsReader;
 @class IASKAppSettingsViewController;
+@class IASKSpecifierValuesViewController;
 
 @protocol IASKSettingsDelegate
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender;
@@ -75,6 +76,7 @@
 @property (nonatomic, assign) BOOL showCreditsFooter;
 @property (nonatomic, assign) BOOL showDoneButton;
 @property (nonatomic, retain) NSSet *hiddenKeys;
+@property (nonatomic, assign) Class specifierValuesViewControllerClass;
 
 - (void)synchronizeSettings;
 - (void)dismiss:(id)sender;
