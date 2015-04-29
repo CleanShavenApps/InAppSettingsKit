@@ -510,7 +510,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 - (UITableViewCell*)newCellForIdentifier:(NSString*)identifier {
 	UITableViewCell *cell = nil;
 	if ([identifier isEqualToString:kIASKPSToggleSwitchSpecifier]) {
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSToggleSwitchSpecifier];
+		cell = [[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSToggleSwitchSpecifier];
 		cell.accessoryView = [[IASKSwitch alloc] initWithFrame:CGRectMake(0, 0, 79, 27)];
 		[((IASKSwitch*)cell.accessoryView) addTarget:self action:@selector(toggledValue:) forControlEvents:UIControlEventValueChanged];
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
