@@ -893,16 +893,20 @@ CGRect IASKCGRectSwap(CGRect rect);
         [vc presentModalViewController:mailViewController animated:YES];
         [mailViewController release];
     } else {
-        UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle:NSLocalizedString(@"Mail not configured", @"InAppSettingsKit")
-                              message:NSLocalizedString(@"This device is not configured for sending Email. Please configure the Mail settings in the Settings app.", @"InAppSettingsKit")
-                              delegate: nil
-                              cancelButtonTitle:NSLocalizedString(@"OK", @"InAppSettingsKit")
-                              otherButtonTitles:nil];
-        [alert show];
-        [alert release];
+        [self onMailNotConfigured:specifier];
     }
+}
 
+- (void)onMailNotConfigured:(IASKSpecifier*)specifier
+{
+    UIAlertView *alert = [[UIAlertView alloc]
+                          initWithTitle:NSLocalizedString(@"Mail not configured", @"InAppSettingsKit")
+                          message:NSLocalizedString(@"This device is not configured for sending Email. Please configure the Mail settings in the Settings app.", @"InAppSettingsKit")
+                          delegate: nil
+                          cancelButtonTitle:NSLocalizedString(@"OK", @"InAppSettingsKit")
+                          otherButtonTitles:nil];
+    [alert show];
+    [alert release];
 }
 
 #pragma mark -
