@@ -821,6 +821,21 @@ CGRect IASKCGRectSwap(CGRect rect);
                 }
             }
             
+            if ([self.delegate respondsToSelector:@selector(settingsViewController:mailComposeAttachmentsForSpecifier:)])
+            {
+                NSArray *attachments = [self.delegate settingsViewController:self
+                                          mailComposeAttachmentsForSpecifier:specifier];
+                for (NSDictionary *attachmentInfo in attachments)
+                {
+                    NSData *attachmentData = attachmentInfo[@"data"];
+                    NSString *mimeType = attachmentInfo[@"mimeType"];
+                    NSString *filename = attachmentInfo[@"filename"];
+                    [mailViewController addAttachmentData:attachmentData
+                                                 mimeType:mimeType
+                                                 fileName:filename];
+                }
+            }
+            
             UIViewController<MFMailComposeViewControllerDelegate> *vc = nil;
             
             if ([self.delegate respondsToSelector:@selector(settingsViewController:viewControllerForMailComposeViewForSpecifier:)]) {
